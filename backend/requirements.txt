@@ -1,5 +1,6 @@
-fastapi
-uvicorn
-python-jose[cryptography]  # for JWT tokens
-passlib[bcrypt]  # for password hashing
-pydantic  # already included with FastAPI but making it explicit
+fastapi==0.115.*
+uvicorn==0.34.*
+python-jose[cryptography]==3.3.*
+passlib[bcrypt]==1.7.*
+pyjwt==2.10.*
+python-multipart==0.0.*
