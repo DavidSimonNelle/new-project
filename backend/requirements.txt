@@ -3,3 +3,6 @@ uvicorn
 python-jose[cryptography]  # for JWT tokens
 passlib[bcrypt]  # for password hashing
 pydantic  # already included with FastAPI but making it explicit
+sqlalchemy  # For database ORM
+psycopg2-binary  # PostgreSQL adapter
+python-dotenv  # For environment variables
