@@ -7,6 +7,7 @@ import jwt
 import uvicorn
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
+from backend.classes.users import Token, UserCreate
 from config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 import models
 from database import engine, get_db
@@ -16,17 +17,8 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# Password hashing configuration
+# Password hashing configuratio
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# Pydantic models
-class UserCreate(BaseModel):
-    username: str
-    password: str
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
 
 # OAuth2 scheme
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
