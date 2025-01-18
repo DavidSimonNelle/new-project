@@ -7,8 +7,9 @@ import jwt
 import uvicorn
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from backend.classes.users import Token, UserCreate
-from config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
+from auth.token import create_access_token
+from classes.users import Token, UserCreate
+from config import ACCESS_TOKEN_EXPIRE_MINUTES
 import models
 from database import engine, get_db
 
@@ -23,12 +24,6 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # OAuth2 scheme
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-    to_encode = data.copy()
-    expire = datetime.now(datetime.UTC) + (expires_delta or timedelta(minutes=15))
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
 
 @app.post("/signup")
 async def signup(user: UserCreate, db: Session = Depends(get_db)):#starts db session which automatically closes when request is complete

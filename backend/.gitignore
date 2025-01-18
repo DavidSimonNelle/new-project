@@ -31,4 +31,6 @@ backend/config.py
 *.swo 
 
 # Add to existing .gitignore
-.env 
+.env
+
+*.db
