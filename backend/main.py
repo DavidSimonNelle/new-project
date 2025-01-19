@@ -7,11 +7,11 @@ import jwt
 import uvicorn
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from auth.token import create_access_token
-from classes.users import Token, UserCreate
-from config import ACCESS_TOKEN_EXPIRE_MINUTES
-import models
-from database import engine, get_db
+from .auth.token import create_access_token
+from .classes.users import Token, UserCreate
+from .config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
+import backend.models as models
+from backend.database import engine, get_db
 
 # Create database tables
 models.Base.metadata.create_all(bind=engine)
@@ -60,4 +60,4 @@ def read_root():
     return {"message": "Hello, World honkomaster"}
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("backend.main:app", host="127.0.0.1", port=8000, reload=True)
